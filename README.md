@@ -34,13 +34,4 @@ http://localhost:4200
 
 ## Features
 
-- ✅ Two-column layout (image panel + form panel)
-- ✅ Blue gradient overlay on left panel
-- ✅ Email/Student ID input
-- ✅ Password input with show/hide toggle
-- ✅ Remember Me checkbox
-- ✅ Forgot password link
-- ✅ Sign In button
-- ✅ Register link
-- ✅ Responsive (stacks vertically on mobile)
-- ✅ Angular 17 standalone component with FormsModule (ngModel)
+

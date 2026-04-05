@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
@@ -15,12 +16,15 @@ export class AppComponent {
   rememberMe = false;
   showPassword = false;
 
+  constructor(private router: Router) {}
+
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
   onSignIn(): void {
-    console.log('Sign in with:', this.email);
-    // Add authentication logic here
+    if (this.email && this.password) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 }
