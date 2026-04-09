@@ -1,0 +1,464 @@
+/* appointments.component.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:host {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  color: #0f172a;
+}
+
+.appointments-wrapper {
+  padding: 3rem 4rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   Header and Breadcrumbs
+   ========================================================================== */
+.step-header {
+  margin-bottom: 2rem;
+}
+
+.step-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.step-text {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+.step-percentage {
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.progress-bar-container {
+  height: 6px;
+  background-color: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 6px;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.breadcrumb-nav .current {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Title Section
+   ========================================================================== */
+.title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.btn-policy {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.btn-policy:hover {
+  background-color: #f8fafc;
+}
+
+/* ==========================================================================
+   Counselor Card
+   ========================================================================== */
+.counselor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.02);
+  margin-bottom: 2rem;
+}
+
+.counselor-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.counselor-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.counselor-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.2rem;
+}
+
+.counselor-meta {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #ecfdf5;
+  color: #10b981;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+/* ==========================================================================
+   Main Grid Layout
+   ========================================================================== */
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+}
+
+.section-title {
+  font-size: 1.1-rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   Calendar Grid Card
+   ========================================================================== */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.month-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.current-month {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.nav-arrow {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.weekday {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #94a3b8;
+  padding-bottom: 1rem;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  position: relative;
+}
+
+.day.available {
+  cursor: pointer;
+  color: #1e293b;
+}
+
+.day.available:hover {
+  background-color: #f1f5f9;
+}
+
+.day.disabled {
+  color: #cbd5e1;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.day.selected {
+  background-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+}
+
+.day.indicator::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  width: 4px;
+  height: 4px;
+  background-color: #10b981;
+  border-radius: 50%;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 1.5rem;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.legend-item .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.selected-dot { background-color: #3b82f6; }
+.available-dot { background-color: #e2e8f0; border: 1px solid #cbd5e1; }
+.disabled-dot { background-color: #f1f5f9; }
+
+/* ==========================================================================
+   Time Slots Card
+   ========================================================================== */
+.slots-header {
+  margin-bottom: 1.5rem;
+}
+
+.slots-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+.time-filters {
+  display: flex;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.filter-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-tab.active {
+  background-color: #ffffff;
+  color: #3b82f6;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.time-slot {
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-slot:hover:not(.disabled):not(.selected) {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+.time-slot.selected {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.time-slot.disabled {
+  color: #cbd5e1;
+  background-color: #f8fafc;
+  cursor: not-allowed;
+}
+
+.selection-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.selection-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #eff6ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selection-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.1rem;
+}
+
+.selection-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.btn-confirm {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1rem;
+}
+
+.btn-confirm:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-back {
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.btn-back:hover {
+  color: #1e293b;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+}

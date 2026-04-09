@@ -1,0 +1,161 @@
+<div class="appointments-wrapper">
+  
+  <!-- Header Area -->
+  <div class="step-header">
+    <div class="step-top">
+      <span class="step-text">Step 2 of 4: Select Date & Time</span>
+      <span class="step-percentage">50% Complete</span>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-fill" style="width: 50%;"></div>
+    </div>
+    <div class="breadcrumb-nav">
+      <span>Service Selection</span>
+      <span class="chevron">></span>
+      <span class="current">Select Time</span>
+      <span class="chevron">></span>
+      <span>Personal Details</span>
+      <span class="chevron">></span>
+      <span>Confirmation</span>
+    </div>
+  </div>
+
+  <div class="title-section">
+    <div class="title-content">
+      <h1 class="page-title">Choose your session time</h1>
+      <p class="page-subtitle">Pick a date and time that works best for your schedule.</p>
+    </div>
+    <button class="btn-policy">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+      View Policy
+    </button>
+  </div>
+
+  <!-- Counselor Card -->
+  <div class="counselor-card">
+    <div class="counselor-info">
+      <img src="https://i.pravatar.cc/80?img=9" alt="Dr. Sioney Lina" class="counselor-avatar" />
+      <div class="counselor-details">
+        <h3 class="counselor-name">Session with Dr. Sioney Lina</h3>
+        <p class="counselor-meta">Duration: 45 minutes &bull; Academic Guidance</p>
+      </div>
+    </div>
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      Available
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="booking-grid">
+    
+    <!-- Left Column: Calendar -->
+    <div class="card calendar-card">
+      <div class="calendar-header">
+        <h2 class="section-title">Select Date</h2>
+        <div class="month-selector">
+          <button class="nav-arrow">&lt;</button>
+          <span class="current-month">OCTOBER 2024</span>
+          <button class="nav-arrow">&gt;</button>
+        </div>
+      </div>
+
+      <div class="calendar-grid">
+        <!-- Weekdays -->
+        <div class="weekday">SUN</div>
+        <div class="weekday">MON</div>
+        <div class="weekday">TUE</div>
+        <div class="weekday">WED</div>
+        <div class="weekday">THU</div>
+        <div class="weekday">FRI</div>
+        <div class="weekday">SAT</div>
+
+        <!-- Days -->
+        <div class="day empty"></div>
+        <div class="day empty"></div>
+        <div class="day available">1</div>
+        <div class="day available">2</div>
+        <div class="day available">3</div>
+        <div class="day available">4</div>
+        <div class="day selected">5</div>
+        
+        <div class="day available">6</div>
+        <div class="day available">7</div>
+        <div class="day available indicator">8</div>
+        <div class="day available">9</div>
+        <div class="day disabled">10</div>
+        <div class="day available">11</div>
+        <div class="day available">12</div>
+        
+        <div class="day available">13</div>
+        <div class="day available">14</div>
+        <div class="day available indicator">15</div>
+        <div class="day available">16</div>
+        <div class="day available">17</div>
+        <div class="day available">18</div>
+        <div class="day available">19</div>
+        
+        <div class="day available">20</div>
+        <div class="day available">21</div>
+        <div class="day available">22</div>
+        <div class="day available">23</div>
+        <div class="day available">24</div>
+        <div class="day available">25</div>
+        <div class="day available">26</div>
+      </div>
+
+      <div class="calendar-legend">
+        <div class="legend-item"><span class="dot selected-dot"></span> Selected Date</div>
+        <div class="legend-item"><span class="dot available-dot"></span> Available</div>
+        <div class="legend-item"><span class="dot disabled-dot"></span> Unavailable</div>
+      </div>
+    </div>
+
+    <!-- Right Column: Time Slots -->
+    <div class="card slots-card">
+      <div class="slots-header">
+        <h2 class="section-title">Available Slots</h2>
+        <p class="slots-subtitle">Showing times for Friday, Oct 5, 2024</p>
+      </div>
+
+      <div class="time-filters">
+        <button class="filter-tab active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          Morning
+        </button>
+        <button class="filter-tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          Afternoon
+        </button>
+      </div>
+
+      <div class="slots-grid">
+        <button class="time-slot selected">08:30 AM</button>
+        <button class="time-slot">09:15 AM</button>
+        <button class="time-slot">10:00 AM</button>
+        <button class="time-slot">10:45 AM</button>
+        <button class="time-slot disabled">11:30 AM</button>
+        <button class="time-slot">12:15 PM</button>
+      </div>
+
+      <div class="selection-footer">
+        <div class="selection-details">
+          <div class="icon-circle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <div>
+            <span class="selection-label">YOUR SELECTION</span>
+            <p class="selection-value">Oct 5, 2024 at 08:30 AM</p>
+          </div>
+        </div>
+        
+        <button class="btn-confirm">
+          Confirm Time &rarr;
+        </button>
+        <a href="#" class="btn-back">Back to Counselor Selection</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,5 @@
 node_modules
+dist/
+.angular/
+diff.txt
+diff_utf8.txt
