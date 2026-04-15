@@ -2,12 +2,12 @@
 
 
   <!-- Main Profile Container -->
-  <div class="profile-container">
+  <div class="profile-container" *ngIf="profile.id">
     
     <!-- Profile Header -->
     <div class="profile-header">
       <div class="avatar-wrapper">
-        <img src="https://i.pravatar.cc/150?img=47" class="main-avatar" alt="Steph Gingrich" />
+        <img src="https://i.pravatar.cc/150?img=47" class="main-avatar" [alt]="profile.fullName" />
         <button class="edit-avatar-btn" aria-label="Edit Avatar">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -16,8 +16,8 @@
           </svg>
         </button>
       </div>
-      <h1 class="profile-name">Steph Gingrich</h1>
-      <p class="profile-subtitle">BSIT 2-1 <span class="dot-separator">&middot;</span> Student ID: 2024-8891</p>
+      <h1 class="profile-name">{{ profile.fullName }}</h1>
+      <p class="profile-subtitle">{{ profile.academicProgram }} Year {{ profile.yearLevel }} <span class="dot-separator">&middot;</span> Student ID: {{ profile.studentId }}</p>
     </div>
 
     <!-- Personal Details -->
@@ -32,37 +32,35 @@
       <div class="grid-form">
         <div class="form-group">
           <label>Full Name</label>
-          <input type="text" value="" />
+          <input type="text" [(ngModel)]="profile.fullName" (ngModelChange)="onInputChange()" />
         </div>
         <div class="form-group">
           <label>Email Address</label>
-          <input type="email" value="" />
+          <input type="email" [(ngModel)]="profile.email" (ngModelChange)="onInputChange()" />
         </div>
         <div class="form-group">
           <label>Phone Number</label>
-          <input type="tel" value="" />
+          <input type="tel" [(ngModel)]="profile.phone" />
         </div>
         <div class="form-group">
           <label>School Year</label>
-          <select>
+          <select [(ngModel)]="profile.yearLevel">
             <option value="none"></option>
             <option value="1">1st Year</option>
-            <option value="2" selected>2nd Year</option>
+            <option value="2">2nd Year</option>
             <option value="3">3rd Year</option>
             <option value="4">4th Year</option>
           </select>
         </div>
         <div class="form-group full-width">
           <label>Academic Major/Track</label>
-          <input type="text" value="" />
+          <input type="text" [(ngModel)]="profile.academicProgram" />
         </div>
       </div>
     </div>
 
-    <!-- Preferences and Security (2 columns) -->
-    <div class="twin-cards">
-      
-      <!-- Preferences Add -->
+    <!-- Preferences -->
+    <div class="preferences-section" style="margin-bottom: 2rem;">
       <div class="card preferences-card">
         <div class="card-header">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +77,7 @@
               <p>Get notified about upcoming sessions</p>
             </div>
             <label class="switch">
-              <input type="checkbox" checked />
+              <input type="checkbox" *ngIf="profile.preferences" [(ngModel)]="profile.preferences.appointmentReminders" />
               <span class="slider"></span>
             </label>
           </div>
@@ -90,7 +88,7 @@
               <p>Receive updates via email</p>
             </div>
             <label class="switch">
-              <input type="checkbox" />
+              <input type="checkbox" *ngIf="profile.preferences" [(ngModel)]="profile.preferences.emailNotifications" />
               <span class="slider"></span>
             </label>
           </div>
@@ -101,85 +99,25 @@
               <p>Automatically add appointments to your calendar</p>
             </div>
             <label class="switch">
-              <input type="checkbox" checked />
+              <input type="checkbox" *ngIf="profile.preferences" [(ngModel)]="profile.preferences.calendarSync" />
               <span class="slider"></span>
             </label>
           </div>
-
         </div>
       </div>
 
-      <!-- Security Card -->
-      <div class="card security-card">
-        <div class="card-header">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <h2>Security</h2>
-        </div>
-        <div class="security-links">
-          <!-- Link 1 -->
-          <a href="javascript:void(0)" class="security-link">
-            <div class="link-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-            </div>
-            <div class="link-text">
-              <h4>Update Password</h4>
-              <p>Last changed 3 months ago</p>
-            </div>
-            <div class="link-arrow">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </div>
-          </a>
-          <!-- Link 2 -->
-          <a href="javascript:void(0)" class="security-link">
-            <div class="link-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-              </svg>
-            </div>
-            <div class="link-text">
-              <h4>Device Management</h4>
-              <p>2 active sessions</p>
-            </div>
-            <div class="link-arrow">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </div>
-          </a>
-          <!-- Link 3 Danger -->
-          <a href="javascript:void(0)" class="security-link danger-link">
-            <div class="link-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-            </div>
-            <div class="link-text">
-              <h4 class="danger-text">Sign out from all devices</h4>
-            </div>
-            <div class="link-arrow">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fca5a5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </div>
-          </a>
-        </div>
-      </div>
+      <button (click)="logout()" style="display: flex; align-items: center; gap: 0.5rem; color: #ef4444; background: #fef2f2; border: 1px solid #fca5a5; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 1rem;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fef2f2'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+        Sign out
+      </button>
     </div>
 
     <!-- Action Bar Bottom -->
-    <div class="action-bar">
+    <div class="action-bar" *ngIf="hasChanges">
       <div class="action-info">
         <div class="info-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -194,8 +132,8 @@
         </div>
       </div>
       <div class="action-buttons">
-        <button class="btn-cancel">Cancel</button>
-        <button class="btn-save">Save Changes</button>
+        <button class="btn-cancel" (click)="cancelChanges()">Cancel</button>
+        <button class="btn-save" (click)="saveChanges()">Save Changes</button>
       </div>
     </div>
 
@@ -203,19 +141,19 @@
     <div class="counselor-pill">
       <div class="counselor-info">
         <div class="counselor-avatar-circle">
-          <img src="https://i.pravatar.cc/80?img=1" alt="Mrs. Sarah Miller" />
+          <img [src]="profile.counselor?.avatar" [alt]="profile.counselor?.name" />
         </div>
         <div>
           <span class="counselor-label">YOUR ASSIGNED COUNSELOR</span>
-          <h3 class="counselor-name">Mrs. Sarah Miller</h3>
+          <h3 class="counselor-name">{{ profile.counselor?.name }}</h3>
         </div>
       </div>
-      <button class="btn-message">
+      <a class="btn-message" href="https://chat.google.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: flex; align-items: center; gap: 6px;">
         Message
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
-      </button>
+      </a>
     </div>
 
     <!-- Footer -->

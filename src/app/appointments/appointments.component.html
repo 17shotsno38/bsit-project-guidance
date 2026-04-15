@@ -1,24 +1,6 @@
 <div class="appointments-wrapper">
   
-  <!-- Header Area -->
-  <div class="step-header">
-    <div class="step-top">
-      <span class="step-text">Step 2 of 4: Select Date & Time</span>
-      <span class="step-percentage">50% Complete</span>
-    </div>
-    <div class="progress-bar-container">
-      <div class="progress-fill" style="width: 50%;"></div>
-    </div>
-    <div class="breadcrumb-nav">
-      <span>Service Selection</span>
-      <span class="chevron">></span>
-      <span class="current">Select Time</span>
-      <span class="chevron">></span>
-      <span>Personal Details</span>
-      <span class="chevron">></span>
-      <span>Confirmation</span>
-    </div>
-  </div>
+
 
   <div class="title-section">
     <div class="title-content">
@@ -56,9 +38,19 @@
       <div class="calendar-header">
         <h2 class="section-title">Select Date</h2>
         <div class="month-selector">
-          <button class="nav-arrow">&lt;</button>
-          <span class="current-month">OCTOBER 2024</span>
-          <button class="nav-arrow">&gt;</button>
+          <button class="nav-arrow" (click)="prevMonth()">&lt;</button>
+          
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <select [(ngModel)]="displayMonth" (change)="generateCalendar()" class="current-month" style="border: none; background: transparent; cursor: pointer; outline: none;">
+              <option *ngFor="let month of months; let i = index" [value]="i">{{ month | uppercase }}</option>
+            </select>
+            
+            <select [(ngModel)]="displayYear" (change)="generateCalendar()" class="current-month" style="border: none; background: transparent; cursor: pointer; outline: none;">
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+          </div>
+
+          <button class="nav-arrow" (click)="nextMonth()">&gt;</button>
         </div>
       </div>
 
@@ -73,37 +65,12 @@
         <div class="weekday">SAT</div>
 
         <!-- Days -->
-        <div class="day empty"></div>
-        <div class="day empty"></div>
-        <div class="day available">1</div>
-        <div class="day available">2</div>
-        <div class="day available">3</div>
-        <div class="day available">4</div>
-        <div class="day selected">5</div>
-        
-        <div class="day available">6</div>
-        <div class="day available">7</div>
-        <div class="day available indicator">8</div>
-        <div class="day available">9</div>
-        <div class="day disabled">10</div>
-        <div class="day available">11</div>
-        <div class="day available">12</div>
-        
-        <div class="day available">13</div>
-        <div class="day available">14</div>
-        <div class="day available indicator">15</div>
-        <div class="day available">16</div>
-        <div class="day available">17</div>
-        <div class="day available">18</div>
-        <div class="day available">19</div>
-        
-        <div class="day available">20</div>
-        <div class="day available">21</div>
-        <div class="day available">22</div>
-        <div class="day available">23</div>
-        <div class="day available">24</div>
-        <div class="day available">25</div>
-        <div class="day available">26</div>
+        <div class="day empty" *ngFor="let pad of paddingDays"></div>
+        <div class="day available" *ngFor="let day of calendarDays"
+             [class.selected]="isSelectedDate(day)"
+             (click)="selectCalendarDate(day)">
+          {{ day }}
+        </div>
       </div>
 
       <div class="calendar-legend">
@@ -121,23 +88,23 @@
       </div>
 
       <div class="time-filters">
-        <button class="filter-tab active">
+        <button class="filter-tab" [class.active]="selectedPeriod === 'Morning'" (click)="setPeriod('Morning')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
           Morning
         </button>
-        <button class="filter-tab">
+        <button class="filter-tab" [class.active]="selectedPeriod === 'Afternoon'" (click)="setPeriod('Afternoon')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           Afternoon
         </button>
       </div>
 
       <div class="slots-grid">
-        <button class="time-slot selected">08:30 AM</button>
-        <button class="time-slot">09:15 AM</button>
-        <button class="time-slot">10:00 AM</button>
-        <button class="time-slot">10:45 AM</button>
-        <button class="time-slot disabled">11:30 AM</button>
-        <button class="time-slot">12:15 PM</button>
+        <button class="time-slot" *ngFor="let slot of displayedSlots"
+          [class.selected]="selectedTime === slot.time"
+          [class.disabled]="!slot.available"
+          (click)="selectSlot(slot.time, slot.available)">
+          {{ slot.time }}
+        </button>
       </div>
 
       <div class="selection-footer">
@@ -147,11 +114,11 @@
           </div>
           <div>
             <span class="selection-label">YOUR SELECTION</span>
-            <p class="selection-value">Oct 5, 2024 at 08:30 AM</p>
+            <p class="selection-value">{{ selectedDate }} {{ selectedTime ? 'at ' + selectedTime : '' }}</p>
           </div>
         </div>
         
-        <button class="btn-confirm">
+        <button class="btn-confirm" (click)="confirmAppointment()" [disabled]="!selectedTime">
           Confirm Time &rarr;
         </button>
         <a href="#" class="btn-back">Back to Counselor Selection</a>
