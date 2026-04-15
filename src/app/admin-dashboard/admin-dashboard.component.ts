@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -31,45 +32,48 @@ export class AdminDashboardComponent implements OnInit {
   showAvailabilityDropdown = false;
 
   queueData = {
-    estimatedWait: '24 mins',
-    studentsAhead: 3,
-    isActive: true
+    estimatedWait: '0 mins',
+    studentsAhead: 0,
+    isActive: false
   };
 
-  upcomingSessions = [
-    {
-      id: 1,
-      studentName: 'Maria Clara',
-      tag: 'COUNSELING',
-      detail: 'Guidance Office · Today, 2:00 PM',
-      avatar: 'https://i.pravatar.cc/48?img=5'
-    },
-    {
-      id: 2,
-      studentName: 'Juan dela Cruz',
-      tag: 'ACADEMIC',
-      detail: 'Guidance Office · Today, 3:30 PM',
-      avatar: 'https://i.pravatar.cc/48?img=12'
-    },
-    {
-      id: 3,
-      studentName: 'Ana Santos',
-      tag: 'COUNSELING',
-      detail: 'Guidance Office · Tomorrow, 9:00 AM',
-      avatar: 'https://i.pravatar.cc/48?img=9'
-    }
-  ];
+  upcomingSessions: any[] = [];
 
   todayStats = {
-    totalSessions: 8,
-    completed: 5,
-    pending: 3,
-    walkinQueue: 3
+    totalSessions: 0,
+    completed: 0,
+    pending: 0,
+    walkinQueue: 0
   };
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.refreshDashboardData();
+  }
+
+  refreshDashboardData(): void {
+    this.apiService.getAdminDashboard().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.todayStats = res.stats;
+          this.queueData = {
+            estimatedWait: res.queue.estimatedWait || '0 mins',
+            studentsAhead: res.queue.peopleAhead,
+            isActive: res.queue.peopleAhead > 0
+          };
+          this.upcomingSessions = res.upcomingAppointments.map((app: any) => ({
+            id: app.id,
+            studentName: 'Student User', // The backend currently returns 'counselorName', so modifying to sample student for visual representation
+            tag: app.tag,
+            detail: app.detail,
+            avatar: app.avatar
+          }));
+        }
+      },
+      error: (err) => console.error("Error fetching dashboard mock data", err)
+    });
+  }
 
   setActive(nav: string): void {
     this.activeNav = nav;
@@ -90,12 +94,24 @@ export class AdminDashboardComponent implements OnInit {
 
   callNextStudent(): void {
     if (this.queueData.studentsAhead > 0) {
-      this.queueData.studentsAhead--;
-      if (this.queueData.studentsAhead === 0) {
-        this.queueData.isActive = false;
-        this.queueData.estimatedWait = '0 mins';
-      }
+      this.apiService.callStudent().subscribe({
+        next: (res) => {
+          this.refreshDashboardData();
+          alert('Next walk-in student notified via Gmail!');
+        },
+        error: (err) => console.error("Error calling student", err)
+      });
     }
+  }
+
+  callStudent(session: any): void {
+    this.apiService.callStudent(session.id).subscribe({
+      next: (res) => {
+        this.refreshDashboardData();
+        alert('Appointment session student notified via Gmail!');
+      },
+      error: (err) => console.error("Error calling student", err)
+    });
   }
 
   reschedule(session: any): void {

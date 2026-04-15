@@ -41,4 +41,12 @@ export class ApiService {
   bookAppointment(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/appointments`, data);
   }
+
+  getAdminDashboard(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/dashboard`);
+  }
+
+  callStudent(sessionId?: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/appointments/call`, { sessionId });
+  }
 }
