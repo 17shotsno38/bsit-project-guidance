@@ -44,6 +44,9 @@ export class AppComponent implements AfterViewInit {
         this.apiService.loginWithGoogle(payload).subscribe({
           next: (res) => {
             if (res.success) {
+              if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('isLoggedIn', 'true');
+              }
               this.router.navigate(['/dashboard']);
             }
           },
@@ -56,6 +59,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   loginAsAdmin(): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('isLoggedIn', 'true');
+    }
     this.router.navigate(['/admin']);
   }
 }

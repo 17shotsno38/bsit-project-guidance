@@ -57,7 +57,9 @@ export class ProfileComponent implements OnInit {
   }
 
   logout(): void {
-    // Optionally clear any tokens or state here if needed
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('isLoggedIn');
+    }
     this.router.navigate(['/login']);
   }
 }

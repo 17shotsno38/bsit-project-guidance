@@ -123,6 +123,9 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   logout(): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('isLoggedIn');
+    }
     this.router.navigate(['/login']);
   }
 }
