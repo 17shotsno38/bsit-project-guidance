@@ -1,0 +1,168 @@
+/* Page Header */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.welcome-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  margin-bottom: 5px;
+}
+
+.welcome-sub {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===========================
+   SESSIONS CARD
+   =========================== */
+.sessions-card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+}
+
+.session-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1.5px solid #f0f3f8;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #fafbfc;
+  transition: border-color 0.2s;
+}
+
+.session-item:last-child { margin-bottom: 0; }
+.session-item:hover { border-color: #c7d2fe; }
+
+.session-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.session-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.session-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.session-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.tag-counseling {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.tag-academic {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.session-detail {
+  font-size: 12.5px;
+  color: #9ca3af;
+}
+
+.session-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-call {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1.5px solid #ecfdf5;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #10b981;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-call:hover {
+  background: #d1fae5;
+  border-color: #a7f3d0;
+  color: #059669;
+}
+
+.btn-reschedule {
+  background: white;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-reschedule:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.btn-icon-close {
+  width: 32px;
+  height: 32px;
+  background: white;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #9ca3af;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-icon-close:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.empty-sessions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 0;
+  color: #9ca3af;
+  font-size: 14px;
+}

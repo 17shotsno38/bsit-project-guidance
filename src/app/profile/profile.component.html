@@ -2,8 +2,11 @@
 
 
   <!-- Main Profile Container -->
+  <div class="loading-state" *ngIf="!profile.id" style="padding: 40px; text-align: center; color: #6b7280; font-size: 14px;">
+    Loading your profile details...
+  </div>
+
   <div class="profile-container" *ngIf="profile.id">
-    
     <!-- Profile Header -->
     <div class="profile-header">
       <div class="avatar-wrapper">

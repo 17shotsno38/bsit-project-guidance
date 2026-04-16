@@ -1,0 +1,23 @@
+<div style="padding: 2rem;">
+  <div style="margin-bottom: 2.5rem;">
+    <h1 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Booking Analytics</h1>
+    <p style="color: #64748b;">Visualizing the number of students who booked guidance sessions each month.</p>
+  </div>
+
+  <div style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 2.5rem; max-width: 900px; display: flex; flex-direction: column; height: 500px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+    <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 3rem; color: #1e293b;">Past Year Bookings</h2>
+    
+    <div style="flex: 1; display: flex; align-items: flex-end; gap: 10px; height: 100%; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; position: relative;">
+      <div *ngFor="let data of bookingsChartData" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative;" class="chart-bar-container">
+        <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 8px; color: #3b82f6;">{{ data.count }}</div>
+        <div [style.height.%]="data.count" style="width: 70%; background: linear-gradient(180deg, #3b82f6 0%, #60a5fa 100%); border-radius: 6px 6px 0 0; transition: height 1s ease-out; min-height: 5px; box-shadow: 0 -2px 10px rgba(59,130,246,0.2);"></div>
+      </div>
+    </div>
+    
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <div *ngFor="let data of bookingsChartData" style="flex: 1; text-align: center; font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+        {{ data.month }}
+      </div>
+    </div>
+  </div>
+</div>
