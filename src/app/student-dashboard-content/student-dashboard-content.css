@@ -66,7 +66,7 @@
 }
 
 .live-banner {
-  background: linear-gradient(135deg, #1d4ed8 0%, #0891b2 50%, #059669 100%);
+  background: linear-gradient(135deg, #7a1230 0%, #0891b2 50%, #059669 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,7 +160,7 @@
 }
 
 .btn-join {
-  background: #2563eb;
+  background: #8a1538;
   color: white;
   border: none;
   border-radius: 8px;
@@ -169,12 +169,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 2px 8px rgba(138, 21, 56, 0.3);
 }
 
 .btn-join:hover {
-  background: #1d4ed8;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  background: #7a1230;
+  box-shadow: 0 4px 14px rgba(138, 21, 56, 0.4);
 }
 
 /* ===========================
@@ -202,7 +202,7 @@
 
 .view-all {
   font-size: 13.5px;
-  color: #2563eb;
+  color: #8a1538;
   font-weight: 500;
   text-decoration: none;
 }
@@ -261,8 +261,8 @@
 }
 
 .tag-counseling {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: #fef3c7;
+  color: #7a1230;
 }
 
 .tag-academic {
@@ -295,8 +295,8 @@
 }
 
 .btn-reschedule:hover {
-  border-color: #2563eb;
-  color: #2563eb;
+  border-color: #8a1538;
+  color: #8a1538;
 }
 
 .btn-icon-close {
@@ -331,8 +331,8 @@
 }
 
 .btn-join-meeting:hover {
-  border-color: #2563eb;
-  color: #2563eb;
+  border-color: #8a1538;
+  color: #8a1538;
 }
 
 @media (max-width: 900px) {
@@ -340,3 +340,356 @@
     grid-template-columns: 1fr;
   }
 }
+
+.appt-status-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+.appt-badge-pending   { background: #fef9c3; color: #854d0e; }
+.appt-badge-serving   { background: #dbeafe; color: #1e40af; }
+.appt-badge-completed { background: #dcfce7; color: #166534; }
+.appt-badge-cancelled { background: #fee2e2; color: #991b1b; }
+
+/* ===========================
+   IT'S YOUR TURN ALERT OVERLAY
+   =========================== */
+.called-alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.25s ease;
+}
+
+.called-alert-card {
+  background: white;
+  border-radius: 24px;
+  width: 360px;
+  padding: 36px 28px 28px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.called-alert-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Pulsing ring icon */
+.called-ring {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  animation: pulse-ring 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(16,185,129,0.4); }
+  50%       { box-shadow: 0 0 0 16px rgba(16,185,129,0);   }
+}
+
+.called-ring-inner {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.called-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #059669;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.called-sub {
+  font-size: 14.5px;
+  color: #6b7280;
+  margin: 0 0 20px;
+}
+
+.called-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f0fdf4;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #065f46;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.called-instruction {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.called-dismiss-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 0.01em;
+}
+
+.called-dismiss-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+/* Dark mode */
+:host-context(body.dark) .called-alert-card {
+  background: #1e293b;
+}
+:host-context(body.dark) .called-title   { color: #34d399; }
+:host-context(body.dark) .called-sub     { color: #94a3b8; }
+:host-context(body.dark) .called-detail-row {
+  background: #052e16;
+  border-color: #166534;
+  color: #4ade80;
+}
+:host-context(body.dark) .called-instruction { color: #cbd5e1; }
+
+/* ===========================
+   QUEUE TICKET OVERLAY
+   =========================== */
+.queue-ticket-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.queue-ticket-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 340px;
+  max-width: 90vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ticket-header {
+  background: linear-gradient(135deg, #7a1230 0%, #0891b2 100%);
+  padding: 24px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ticket-body {
+  padding: 28px 24px 20px;
+  text-align: center;
+}
+
+.ticket-number-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ticket-number {
+  font-size: 64px;
+  font-weight: 900;
+  color: #7a1230;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.ticket-info {
+  font-size: 13.5px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.ticket-dismiss {
+  display: block;
+  width: calc(100% - 48px);
+  margin: 0 24px 24px;
+  padding: 14px;
+  background: linear-gradient(135deg, #7a1230 0%, #0891b2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.ticket-dismiss:hover { opacity: 0.9; }
+
+/* ===========================
+   MY QUEUE BADGE (inline)
+   =========================== */
+.my-queue-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 13.5px;
+  color: #166534;
+  font-weight: 500;
+}
+
+.my-queue-badge strong {
+  font-weight: 800;
+  color: #7a1230;
+}
+
+.show-ticket-btn {
+  margin-left: auto;
+  background: #7a1230;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.show-ticket-btn:hover { background: #5e0e24; }
+
+/* ===========================
+   DARK MODE — STUDENT CONTENT
+   =========================== */
+:host-context(body.dark) .welcome-title { color: #f1f5f9; }
+:host-context(body.dark) .welcome-sub   { color: #64748b; }
+
+/* Queue / Live status card */
+:host-context(body.dark) .live-status-card {
+  background: #1e293b;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+:host-context(body.dark) .queue-title  { color: #f1f5f9; }
+:host-context(body.dark) .stat-value   { color: #f1f5f9; }
+:host-context(body.dark) .stat-label   { color: #64748b; }
+:host-context(body.dark) .stat-divider { background: #334155; }
+
+/* My queue badge */
+:host-context(body.dark) .my-queue-badge {
+  background: #052e16;
+  border-color: #166534;
+  color: #86efac;
+}
+:host-context(body.dark) .my-queue-badge strong { color: #fbbf24; }
+
+/* Appointments section */
+:host-context(body.dark) .appointments-section {
+  background: #1e293b;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+:host-context(body.dark) .section-header h3 { color: #f1f5f9; }
+:host-context(body.dark) .view-all           { color: #818cf8; }
+
+:host-context(body.dark) .appointment-card {
+  background: #0f172a;
+  border-color: #334155;
+}
+:host-context(body.dark) .appointment-card:hover { border-color: #6d28d9; }
+:host-context(body.dark) .appt-name   { color: #f1f5f9; }
+:host-context(body.dark) .appt-detail { color: #64748b; }
+
+:host-context(body.dark) .tag-academic {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+:host-context(body.dark) .btn-reschedule {
+  background: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+:host-context(body.dark) .btn-reschedule:hover {
+  border-color: #818cf8;
+  color: #818cf8;
+}
+:host-context(body.dark) .btn-icon-close {
+  background: #1e293b;
+  border-color: #334155;
+  color: #64748b;
+}
+
+/* Right column (Available Counselors) */
+:host-context(body.dark) .col-side > div {
+  background: #1e293b !important;
+}
+:host-context(body.dark) .col-side h3 { color: #f1f5f9 !important; }
+:host-context(body.dark) .col-side .counselor-item {
+  background: #0f172a !important;
+}
+:host-context(body.dark) .col-side .counselor-name { color: #f1f5f9 !important; }
+:host-context(body.dark) .col-side .counselor-role { color: #64748b !important; }
+
+/* Ticket overlay stays dark always */
+:host-context(body.dark) .queue-ticket-card { background: #1e293b; }
+:host-context(body.dark) .ticket-body .ticket-info { color: #94a3b8; }

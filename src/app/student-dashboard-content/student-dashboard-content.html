@@ -1,12 +1,64 @@
+<!-- ══════════════════════════════════════════════
+     IT'S YOUR TURN — Full-screen alert
+     Shown when appointment status flips to 'serving'
+     ══════════════════════════════════════════════ -->
+<div class="called-alert-overlay" *ngIf="showCalledAlert" (click)="dismissCalledAlert()">
+  <div class="called-alert-card" (click)="$event.stopPropagation()">
+    <!-- Animated ring -->
+    <div class="called-ring">
+      <div class="called-ring-inner">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.21 12 19.79 19.79 0 0 1 1.14 3.4 2 2 0 0 1 3.11 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </div>
+    </div>
+
+    <h2 class="called-title">It's Your Turn!</h2>
+    <p class="called-sub">The guidance counselor is calling you now.</p>
+
+    <div class="called-detail-row" *ngIf="calledAppointment">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span>{{ calledAppointment.detail }}</span>
+    </div>
+
+    <div class="called-instruction">
+      Please proceed to the <strong>Guidance Office</strong> immediately.
+    </div>
+
+    <button class="called-dismiss-btn" (click)="dismissCalledAlert()">
+      OK, I'm on my way!
+    </button>
+  </div>
+</div>
+
+<!-- Queue Ticket Banner (shown after joining) -->
+<div class="queue-ticket-overlay" *ngIf="showQueueTicket && myQueueEntry" (click)="dismissQueueTicket()">
+  <div class="queue-ticket-card" (click)="$event.stopPropagation()">
+    <div class="ticket-header">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <span>You've Joined the Queue!</span>
+    </div>
+    <div class="ticket-body">
+      <div class="ticket-number-label">Your Queue Number</div>
+      <div class="ticket-number">#{{ myQueueEntry.queueNumber }}</div>
+      <div class="ticket-info">Please wait inside the Guidance Office lobby.<br>You will be notified when it's your turn.</div>
+    </div>
+    <button class="ticket-dismiss" (click)="dismissQueueTicket()">Got it, thanks!</button>
+  </div>
+</div>
+
+
 <!-- Header -->
 <div class="page-header">
   <div>
     <h1 class="welcome-title">Welcome back, {{ profileData?.fullName?.split(' ')[0] || 'Student' }}!</h1>
     <p class="welcome-sub">You have an upcoming appointment today at 2:00 PM.</p>
   </div>
-  <button class="notif-btn text-btn">
-    Notifications
-  </button>
 </div>
 
 <!-- Two-column layout -->
@@ -25,11 +77,18 @@
           <path d="M3 20 Q8 12 14 14" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
           <path d="M26 14 Q32 12 37 20" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
         </svg>
-        <span class="live-label">DR. SIONEY LINA</span>
+        <span class="live-label">{{ queueData?.counselorName ? (queueData.counselorName | uppercase) : 'LIVE STATUS' }}</span>
       </div>
 
       <div class="queue-body">
         <h3 class="queue-title">Current Queue Status</h3>
+
+        <!-- My active queue entry badge -->
+        <div class="my-queue-badge" *ngIf="myQueueEntry">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          You are in the queue — <strong>Queue #{{ myQueueEntry.queueNumber }}</strong>
+          <button class="show-ticket-btn" (click)="showQueueTicket = true">View Ticket</button>
+        </div>
 
         <div class="queue-stats">
           <div class="stat-block">
@@ -43,9 +102,14 @@
           </div>
         </div>
 
-        <button class="btn-join" (click)="joinWalkInQueue($event)" [disabled]="queueData?.joinedQueue">
-          {{ queueData?.joinedQueue ? 'Joined Queue' : 'Join Walk-In Queue' }}
-        </button>
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+          <button class="btn-join" (click)="joinWalkInQueue($event)" [disabled]="myQueueEntry || isJoiningQueue" style="flex: 1;">
+            {{ isJoiningQueue ? 'Joining...' : (myQueueEntry ? 'Joined Queue ✓' : 'Join Walk-In Queue') }}
+          </button>
+          <button class="btn-cancel" *ngIf="myQueueEntry" (click)="withdrawWalkInQueue($event)" style="flex: 1; border-radius:12px; padding: 14px 24px; font-weight:600; border: none; cursor: pointer; color: #fff; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+            {{ isWithdrawingQueue ? 'Withdrawing...' : 'Withdraw Queue' }}
+          </button>
+        </div>
       </div>
     </div>
 
@@ -61,22 +125,66 @@
         <div class="appt-info">
           <div class="appt-name-row">
             <span class="appt-name">{{ appt.counselorName }}</span>
+            <span class="appt-status-badge" [ngClass]="'appt-badge-' + (appt.status || 'pending')">
+              {{ (appt.status || 'pending') | titlecase }}
+            </span>
             <span class="tag" [ngClass]="{'tag-counseling': appt.tag === 'COUNSELING', 'tag-academic': appt.tag !== 'COUNSELING'}">{{ appt.tag }}</span>
           </div>
           <span class="appt-detail">{{ appt.detail }}</span>
         </div>
         <div class="appt-actions">
-          <button class="btn-reschedule">Reschedule</button>
-          <button class="btn-icon-close" title="Cancel Appointment">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+          <ng-container *ngIf="appt.status === 'pending' || !appt.status">
+            <button class="btn-reschedule" (click)="startReschedule(appt.id)">Reschedule</button>
+            <button class="btn-icon-close" title="Cancel Appointment" (click)="cancelAppointment(appt.id)" [disabled]="isCancellingId === appt.id">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </ng-container>
+          <span *ngIf="appt.status === 'serving'" style="font-size:12px; color:#3b82f6; font-weight:600;">Being Served ✓</span>
         </div>
+      </div>
+
+      <div *ngIf="upcomingAppointments.length === 0" style="text-align:center;padding:24px 0;color:#9ca3af;font-size:14px;">
+        No upcoming appointments.
       </div>
     </div>
 
   </div><!-- /col-main -->
+
+  <!-- Right Column -->
+  <div class="col-side">
+    <div class="side-card" style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+      <div class="side-card-header" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2c3e50" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <h3 style="margin: 0; font-size: 16px; font-weight: 600; color: #2c3e50;">Available Counselors</h3>
+      </div>
+
+      <div class="counselor-list" *ngIf="counselors.length > 0; else noCounselors" style="display: flex; flex-direction: column; gap: 15px;">
+        <div class="counselor-item" *ngFor="let counsel of counselors" style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 8px; background: #f8f9fa;">
+          <div class="counselor-avatar-wrapper" style="position: relative;">
+            <img [src]="counsel.avatar" [alt]="counsel.name" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span class="online-indicator" style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #2ecc71; border: 2px solid white; border-radius: 50%;"></span>
+          </div>
+          <div class="counselor-details" style="display: flex; flex-direction: column;">
+            <span class="counselor-name" style="font-size: 14px; font-weight: 600; color: #2c3e50;">{{ counsel.name }}</span>
+            <span class="counselor-role" style="font-size: 12px; color: #7f8c8d;">{{ counsel.role }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noCounselors>
+        <div class="empty-state" style="text-align: center; padding: 30px 10px; color: #95a5a6; font-size: 14px;">
+          <span>No counselors are online right now.</span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 
 </div><!-- /content-grid -->

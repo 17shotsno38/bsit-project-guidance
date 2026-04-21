@@ -1,7 +1,7 @@
 <!-- page header -->
 <div class="page-header">
 <div>
-  <h1 class="welcome-title">Welcome back, Dr. Lina!</h1>
+  <h1 class="welcome-title">Welcome back, {{ profileData?.fullName?.split(' ')[0] || 'Counselor' }}!</h1>
   <p class="welcome-sub">You have an upcoming session today at 2:00 PM.</p>
 </div>
 <button class="notif-btn text-btn">Notifications</button>
@@ -92,6 +92,21 @@
           <span class="stat-value">{{ queueData.studentsAhead }} Students</span>
         </div>
       </div>
+
+      <!-- Walk-in Tickets List -->
+      <div class="tickets-list" *ngIf="queueData.tickets && queueData.tickets.length > 0" style="margin-bottom: 20px;">
+        <h4 style="font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Current Tickets</h4>
+        <div class="ticket-item" *ngFor="let ticket of queueData.tickets" style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 8px; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'">
+          <div style="display: flex; align-items: center; gap: 12px;">
+             <div style="background: rgba(14, 165, 233, 0.15); color: #0284c7; font-weight: 800; font-size: 14px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">#{{ ticket.number }}</div>
+             <div style="display: flex; flex-direction: column;">
+               <span style="font-weight: 700; color: #334155; font-size: 15px; text-transform: capitalize;">{{ ticket.name }}</span>
+               <span style="font-size: 13px; color: #64748b;">{{ ticket.email }}</span>
+             </div>
+          </div>
+        </div>
+      </div>
+
       <button class="btn-call-next" (click)="callNextStudent()" [disabled]="!queueData.isActive">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="9 18 15 12 9 6" />
